@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebGPU Smoke</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            font-family: sans-serif;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: #222;
+            color: #fff;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            transform: translateX(-260px);
+            z-index: 1000;
+        }
+        #menu.open { transform: translateX(0); }
+        #menu h2 { margin-top: 0; }
+        #menu label { display: block; margin: 10px 0 5px; }
+        input[type="range"] { width: 100%; }
+
+        #toggleMenu {
+            position: fixed;
+            top: 10px;           /* top-left corner */
+            left: 10px;
+            z-index: 1100;
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Move fully to the right when menu opens */
+        #menu.open ~ #toggleMenu {
+            transform: translateX(250px);  /* menu width */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h2>Simulation Controls</h2>
+        <label>Smoke Decay: <input type="range" id="decay" min="0.9" max="1" step="0.001" value="0.995"><span id="decayVal">0.995</span></label>
+        <label>Time Step: <input type="range" id="timestep" min="0.001" max="0.1" step="0.001" value="0.016"><span id="timestepVal">0.016</span></label>
+        <label>Viscosity: <input type="range" id="viscosity" min="0" max="1" step="0.001" value="0"><span id="viscosityVal">0</span></label>
+        <label>Buoyancy: <input type="range" id="buoyancy" min="0" max="5" step="0.01" value="1"><span id="buoyancyVal">1</span></label>
+        <label>GS Iterations: <input type="range" id="gsIterations" min="1" max="100" step="1" value="40"><span id="gsVal">40</span></label>
+        <label>Brush Radius: <input type="range" id="radius" min="1" max="64" step="1" value="8"><span id="radiusVal">8</span></label>
+        <label>Brush Color: <input type="color" id="brushColor" value="#ff9900"></label>
+    </div>
+    <button id="toggleMenu">▶</button>
+    <canvas></canvas>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
